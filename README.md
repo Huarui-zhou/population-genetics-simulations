@@ -16,7 +16,6 @@ The simulations are intended primarily for teaching, visualization, and explorat
 ```text
 population-genetics-simulations/
 ├── README.md
-├── LICENSE
 └── codes/
     ├── Random_mating.py
     └── Wright_Fisher_drift.py
@@ -243,9 +242,3 @@ Generative AI was used as a coding assistant during implementation, debugging, a
 These programs are intended for educational and exploratory use.
 
 They are simplified population-genetic models and are not intended to represent all biological processes acting in natural populations.
-
----
-
-## License
-
-See the `LICENSE` file for licensing information.
