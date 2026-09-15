@@ -32,8 +32,8 @@ This program is an interactive deterministic diploid population-genetics model i
 
 - Random mating
 - Viability selection
-- Forward mutation: \(A \rightarrow a\)
-- Reverse mutation: \(a \rightarrow A\)
+- Forward mutation: A → a
+- Reverse mutation: a → A
 
 ### Model life cycle
 
@@ -47,17 +47,17 @@ In each generation:
 
 The genotype fitnesses are defined as:
 
-\[
+$$
 w_{AA} = 1 - s_{AA}
-\]
+$$
 
-\[
+$$
 w_{Aa} = 1 - s_{Aa}
-\]
+$$
 
-\[
+$$
 w_{aa} = 1 - s_{aa}
-\]
+$$
 
 ### Adjustable parameters
 
@@ -65,18 +65,18 @@ Users can modify:
 
 - Initial frequency of genotype `AA`
 - Initial frequency of genotype `Aa`
-- Selection coefficient \(s_{AA}\)
-- Selection coefficient \(s_{Aa}\)
-- Selection coefficient \(s_{aa}\)
-- Forward mutation rate \(u\), for \(A \rightarrow a\)
-- Reverse mutation rate \(v\), for \(a \rightarrow A\)
+- Selection coefficient $s_{AA}$
+- Selection coefficient $s_{Aa}$
+- Selection coefficient $s_{aa}$
+- Forward mutation rate $u$, for A → a
+- Reverse mutation rate $v$, for a → A
 - Number of generations
 
 The initial frequency of genotype `aa` is calculated automatically from:
 
-\[
+$$
 f_{aa} = 1 - f_{AA} - f_{Aa}
-\]
+$$
 
 ### Output
 
@@ -100,19 +100,19 @@ This program is an interactive stochastic simulation of genetic drift based on t
 
 In a finite population, allele frequencies fluctuate from generation to generation because of random sampling. In each generation, the number of copies of allele `A` is sampled from a binomial distribution determined by the allele frequency in the previous generation.
 
-For a population containing \(2N\) allele copies,
+For a population containing $2N$ allele copies,
 
-\[
+$$
 X_{t+1} \sim \mathrm{Binomial}(2N, p_t)
-\]
+$$
 
 and
 
-\[
+$$
 p_{t+1} = \frac{X_{t+1}}{2N}
-\]
+$$
 
-where \(p_t\) is the frequency of allele `A` in generation \(t\).
+where $p_t$ is the frequency of allele `A` in generation $t$.
 
 ### Adjustable parameters
 
@@ -121,7 +121,7 @@ Users can modify:
 - Population size, represented as the number of allele copies (`2N`)
 - Number of generations
 - Number of independent simulation paths
-- Initial allele frequency, \(p(A)\)
+- Initial allele frequency, $p(A)$
 
 ### Output
 
@@ -141,11 +141,11 @@ The simulation displays:
 
 For the neutral Wright–Fisher model,
 
-\[
+$$
 P(\text{eventual fixation of } A) = p_0
-\]
+$$
 
-where \(p_0\) is the initial frequency of allele `A`.
+where $p_0$ is the initial frequency of allele `A`.
 
 Because this model is stochastic, repeated simulations with the same parameters can produce different trajectories.
 
