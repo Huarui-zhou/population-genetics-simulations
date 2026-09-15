@@ -1,100 +1,180 @@
-# Population Genetics Models: Selection, Mutation, and Genetic Drift
+# Population Genetics Simulations
 
 Interactive Python simulations for exploring fundamental concepts in population genetics.
 
-These programs were designed as visual and interactive tools for teaching and exploring how genotype and allele frequencies change across generations under selection, mutation, random mating, and genetic drift.
+This repository contains two visual and interactive population-genetics models:
 
-## Simulations
+1. A deterministic model of random mating with viability selection and two-way mutation.
+2. A stochastic Wright–Fisher model for genetic drift in a finite population.
 
-### 1. Random Mating with Selection and Two-Way Mutation
-
-`HW.py`
-
-An interactive deterministic diploid population-genetics model incorporating:
-
-* Viability selection
-* Random mating
-* Forward mutation \(A \rightarrow a\)
-* Reverse mutation \(a \rightarrow A\)
-
-The mating cycle in each generation is:
-
-1. Viability selection acts on the current genotype frequencies.
-2. Selected adults produce gametes.
-3. Mutation changes allele frequencies in the gamete pool.
-4. Gametes unite randomly.
-5. The next generation is formed under Hardy–Weinberg proportions.
-
-Genotype fitnesses are defined as
-
-$$
-w_{AA}=1-s_{AA}
-$$
-
-$$
-w_{Aa}=1-s_{Aa}
-$$
-
-$$
-w_{aa}=1-s_{aa}
-$$
-
-Users can modify:
-
-* Initial genotype frequencies
-* Selection coefficients
-* Forward mutation rate \(u\)
-* Reverse mutation rate \(v\)
-* Number of generations
-
-The program displays genotype-frequency and allele-frequency dynamics through time.
+The simulations are intended primarily for teaching, visualization, and exploratory use.
 
 ---
 
-### 2. Genetic Drift Model (Wright–Fisher Model)
+## Repository Structure
 
-`WF.py`
+```text
+population-genetics-simulations/
+├── README.md
+├── LICENSE
+└── codes/
+    ├── Random_mating.py
+    └── Wright_Fisher_drift.py
+```
 
-An interactive stochastic simulation of genetic drift based on the neutral Wright–Fisher model.
+---
 
-The model represents a finite population in which allele frequencies change from generation to generation because of random sampling. For each generation, the number of copies of allele **A** is sampled from a binomial distribution determined by its frequency in the previous generation.
+## 1. Random Mating with Selection and Two-Way Mutation
+
+**File:** `codes/Random_mating.py`
+
+This program is an interactive deterministic diploid population-genetics model incorporating:
+
+- Random mating
+- Viability selection
+- Forward mutation: \(A \rightarrow a\)
+- Reverse mutation: \(a \rightarrow A\)
+
+### Model life cycle
+
+In each generation:
+
+1. Viability selection acts on the current zygote genotype frequencies.
+2. Selected adults produce gametes.
+3. Mutation occurs in the gamete pool.
+4. Gametes unite at random.
+5. The next generation is formed under Hardy–Weinberg proportions.
+
+The genotype fitnesses are defined as:
+
+\[
+w_{AA} = 1 - s_{AA}
+\]
+
+\[
+w_{Aa} = 1 - s_{Aa}
+\]
+
+\[
+w_{aa} = 1 - s_{aa}
+\]
+
+### Adjustable parameters
 
 Users can modify:
 
-* Population size (`2N`)
-* Number of generations
-* Number of simulation paths
-* Initial allele frequency, `p(A)`
+- Initial frequency of genotype `AA`
+- Initial frequency of genotype `Aa`
+- Selection coefficient \(s_{AA}\)
+- Selection coefficient \(s_{Aa}\)
+- Selection coefficient \(s_{aa}\)
+- Forward mutation rate \(u\), for \(A \rightarrow a\)
+- Reverse mutation rate \(v\), for \(a \rightarrow A\)
+- Number of generations
+
+The initial frequency of genotype `aa` is calculated automatically from:
+
+\[
+f_{aa} = 1 - f_{AA} - f_{Aa}
+\]
+
+### Output
 
 The simulation displays:
 
-* Allele-frequency trajectories
-* Fixation and loss events
-* Distribution of fixation times
-* Distribution of loss times
-* Numbers of populations fixed, lost, or still segregating
-* Simulated fixation and loss probabilities
-* The theoretical fixation probability
+- Genotype-frequency dynamics for `AA`, `Aa`, and `aa`
+- Allele-frequency dynamics for `A` and `a`
+- Initial and final genotype frequencies
+- Initial and final allele frequencies
+- Simulation parameters
 
-Under the neutral Wright–Fisher model,
+This model is deterministic: the same parameter values produce the same population trajectory.
 
-$$
-P(\text{eventual fixation of A}) = p_0
-$$
+---
 
-where \(p_0\) is the initial frequency of allele **A**.
+## 2. Genetic Drift Model — Wright–Fisher Model
+
+**File:** `codes/Wright_Fisher_drift.py`
+
+This program is an interactive stochastic simulation of genetic drift based on the neutral Wright–Fisher model.
+
+In a finite population, allele frequencies fluctuate from generation to generation because of random sampling. In each generation, the number of copies of allele `A` is sampled from a binomial distribution determined by the allele frequency in the previous generation.
+
+For a population containing \(2N\) allele copies,
+
+\[
+X_{t+1} \sim \mathrm{Binomial}(2N, p_t)
+\]
+
+and
+
+\[
+p_{t+1} = \frac{X_{t+1}}{2N}
+\]
+
+where \(p_t\) is the frequency of allele `A` in generation \(t\).
+
+### Adjustable parameters
+
+Users can modify:
+
+- Population size, represented as the number of allele copies (`2N`)
+- Number of generations
+- Number of independent simulation paths
+- Initial allele frequency, \(p(A)\)
+
+### Output
+
+The simulation displays:
+
+- Multiple allele-frequency trajectories
+- Fixation events
+- Loss events
+- Distribution of fixation times
+- Distribution of loss times
+- Number of populations fixed
+- Number of populations lost
+- Number of populations still segregating
+- Simulated probability of fixation
+- Simulated probability of loss
+- Theoretical fixation probability
+
+For the neutral Wright–Fisher model,
+
+\[
+P(\text{eventual fixation of } A) = p_0
+\]
+
+where \(p_0\) is the initial frequency of allele `A`.
+
+Because this model is stochastic, repeated simulations with the same parameters can produce different trajectories.
+
+---
+
+## Comparison of the Two Models
+
+| Model | Type | Main processes |
+|---|---|---|
+| `Random_mating.py` | Deterministic | Random mating, viability selection, mutation |
+| `Wright_Fisher_drift.py` | Stochastic | Genetic drift caused by finite-population sampling |
+
+The random-mating model illustrates how deterministic evolutionary forces change genotype and allele frequencies.
+
+The Wright–Fisher model illustrates how random sampling alone can cause an allele to fluctuate in frequency and eventually become fixed or lost, even in the absence of selection.
+
+Together, the two simulations provide a simple comparison between deterministic and stochastic processes in population genetics.
 
 ---
 
 ## Requirements
 
-The simulations require Python 3 and the following packages:
+The simulations require Python 3 and the following Python packages:
 
 ```bash
 pip install numpy matplotlib
 ```
 
-For interactive use inside JupyterLab:
+For interactive use in JupyterLab, install:
 
 ```bash
 pip install ipympl
@@ -106,43 +186,45 @@ Then enable the interactive Matplotlib backend:
 %matplotlib widget
 ```
 
-The default inline backend should not be used because the interactive controls require a live Matplotlib canvas.
+Do not use the default inline Matplotlib backend if you want the interactive controls to remain functional.
 
 ---
 
 ## Running the Simulations
 
-Run the random-mating selection and mutation model with:
+Clone or download this repository, then run the programs from the repository root.
+
+### Random mating, selection, and mutation model
 
 ```bash
-python HW.py
+python codes/Random_mating.py
 ```
 
-Run the genetic drift model with:
+### Wright–Fisher genetic drift model
 
 ```bash
-python WF.py
+python codes/Wright_Fisher_drift.py
 ```
 
-The programs use Matplotlib's built-in interactive widgets, including sliders, text boxes, and buttons.
+Both programs use Matplotlib's built-in interactive widgets.
 
 ---
 
-## Purpose
+## Educational Purpose
 
-These simulations are intended primarily for:
+These simulations are intended to help visualize and explore concepts such as:
 
-* Teaching population genetics
-* Visualizing evolutionary dynamics
-* Exploring selection, mutation, random mating, and genetic drift
-* Comparing deterministic and stochastic population-genetic models
-* Developing intuition about allele-frequency change, fixation, and loss
+- Hardy–Weinberg random mating
+- Genotype and allele frequencies
+- Viability selection
+- Mutation
+- Genetic drift
+- Finite-population sampling
+- Allele fixation
+- Allele loss
+- Deterministic versus stochastic evolutionary dynamics
 
-`HW.py` is a deterministic model of genotype and allele-frequency change under viability selection, mutation, and random mating.
-
-`WF.py` is a stochastic model of genetic drift in a finite population.
-
-Together, the two simulations illustrate the contrast between deterministic evolutionary forces and stochastic changes caused by finite-population sampling.
+The models are deliberately simplified so that individual population-genetic processes can be explored interactively.
 
 ---
 
@@ -158,7 +240,9 @@ Generative AI was used as a coding assistant during implementation, debugging, a
 
 ## Disclaimer
 
-These programs are intended for educational and exploratory use. They are simplified population-genetic models and are not intended to represent every biological process affecting natural populations.
+These programs are intended for educational and exploratory use.
+
+They are simplified population-genetic models and are not intended to represent all biological processes acting in natural populations.
 
 ---
 
